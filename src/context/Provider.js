@@ -5,7 +5,7 @@ import authInitialState from './initialsStates/authInitialState';
 import contacts from './reducers/contacts';
 import contactsInitialState from './initialsStates/contactsInitialState';
 
-const GlobalContext = createContext({});
+export const GlobalContext = createContext({});
 
 const GlobalProvider = ({children}) => {
   const [authState, authDispatch] = useReducer(auth, authInitialState);
@@ -13,7 +13,7 @@ const GlobalProvider = ({children}) => {
 
   return(
       <GlobalContext.Provider 
-        value={authState, contactsState, authDispatch, contactsDispatch}>
+        value={{authState, contactsState, authDispatch, contactsDispatch}}>
        {children}
       </GlobalContext.Provider>
   );
