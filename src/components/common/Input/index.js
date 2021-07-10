@@ -12,6 +12,7 @@ const Input = ({
   label, 
   icon,
   error,
+  placeholder,
   ...props
   }) => {
     const [focused, setFocused] = useState(false);
@@ -49,6 +50,7 @@ const Input = ({
          <View>{icon && icon}</View>
 
          <TextInput
+            placeholder={placeholder}
             style={[styles.textInput, style]}
             defaultValue="You can type in me"
             onChangeText={onChangeText}
