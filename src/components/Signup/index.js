@@ -6,11 +6,11 @@ import { useNavigation } from '@react-navigation/native';
 import Container from '../common/Container/index';
 import CustomButton from '../common/CustomButton/index';
 import Input from '../common/Input/index';
-import {REGISTER} from '../../constants/RouteNames';
+import {LOGIN} from '../../constants/RouteNames';
 
 import styles from './styles';
 
-const LoginComponent = () => {
+const RegisterComponent = () => {
     const {navigate} = useNavigation();
     return(
        <Container>
@@ -21,13 +21,27 @@ const LoginComponent = () => {
 
             <View>
               <Text style={styles.title}>Welcome to RN Contacts App</Text>
-              <Text style={styles.subTitle}>Please login here</Text>
+              <Text style={styles.subTitle}>Create a free account</Text>
 
               <View style={styles.form}>
                 <Input
-                    label="Username"
+                    label="First name"
                     iconPosition='right'
-                    placeholder={'Enter Username'}
+                    placeholder={'Enter first name'}
+                    //   error={'This field is required'}
+                />
+
+                 <Input
+                    label="Last name"
+                    iconPosition='right'
+                    placeholder={'Enter last name'}
+                    //   error={'This field is required'}
+                />
+
+                 <Input
+                    label="Email"
+                    iconPosition='right'
+                    placeholder={'Enter email'}
                     //   error={'This field is required'}
                 />
 
@@ -42,10 +56,10 @@ const LoginComponent = () => {
                 <CustomButton primary title='Submit' />
 
                 <View style={styles.createSection}>
-                  <Text style={styles.infoText}>Need a new account ? </Text>
+                  <Text style={styles.infoText}>Already have an account ? </Text>
 
-                  <TouchableOpacity onPress={() => navigate(REGISTER)}>
-                   <Text style={styles.linkBio}>Register</Text>
+                  <TouchableOpacity onPress={() => navigate(LOGIN)}>
+                   <Text style={styles.linkBio}>Login</Text>
                   </TouchableOpacity>
                 </View>
               </View>
@@ -56,4 +70,4 @@ const LoginComponent = () => {
     );
 };
 
-export default LoginComponent;
+export default RegisterComponent;

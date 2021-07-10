@@ -52,7 +52,6 @@ const Input = ({
          <TextInput
             placeholder={placeholder}
             style={[styles.textInput, style]}
-            defaultValue="You can type in me"
             onChangeText={onChangeText}
             value={value}
             onFocus={() => setFocused(true)}
