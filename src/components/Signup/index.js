@@ -10,7 +10,12 @@ import {LOGIN} from '../../constants/RouteNames';
 
 import styles from './styles';
 
-const RegisterComponent = () => {
+const RegisterComponent = ({
+  onSubmit,
+  onChange,
+  form,
+  errors,
+}) => {
     const {navigate} = useNavigation();
     return(
        <Container>
@@ -25,24 +30,35 @@ const RegisterComponent = () => {
 
               <View style={styles.form}>
                 <Input
+                    label="Username"
+                    iconPosition='right'
+                    placeholder={'Enter username'}
+                    error={errors.userName}
+                    onChangeText={(value) => {onChange({name: 'userName', value})}}
+                />
+
+                <Input
                     label="First name"
                     iconPosition='right'
                     placeholder={'Enter first name'}
-                    //   error={'This field is required'}
+                    onChangeText={(value) => {onChange({name: 'firstName', value})}}
+                    error={errors.firstName}
                 />
 
                  <Input
                     label="Last name"
                     iconPosition='right'
                     placeholder={'Enter last name'}
-                    //   error={'This field is required'}
+                    error={errors.lastName}
+                    onChangeText={(value) => {onChange({name: 'lastName', value})}}
                 />
 
                  <Input
                     label="Email"
                     iconPosition='right'
                     placeholder={'Enter email'}
-                    //   error={'This field is required'}
+                    error={errors.email}
+                    onChangeText={(value) => {onChange({name: 'email', value})}}
                 />
 
                 <Input
@@ -51,9 +67,11 @@ const RegisterComponent = () => {
                     secureTextEntry={true}
                     icon={<Text>Show</Text>}
                     iconPosition='right'
+                    error={errors.password}
+                    onChangeText={(value) => {onChange({name: 'password', value})}}
                 />
 
-                <CustomButton primary title='Submit' />
+                <CustomButton onPress={onSubmit} primary title='Submit' />
 
                 <View style={styles.createSection}>
                   <Text style={styles.infoText}>Already have an account ? </Text>
