@@ -1,16 +1,19 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import {View, Text} from 'react-native';
 
 import RegisterComponent from '../../components/Signup/index';
 import envs from '../../config/env';
+import axiosInstance from '../../helpers/axiosInterceptor';
 
 const Register = () => {
  const [form, setForm] = useState({});
  const [errors, setErrors] = useState({});
- const {BACKEND_URL} = envs;
-
-  console.log('BACKEND_URL :>>', BACKEND_URL);
-  console.log('_DEV_', __DEV__);
+ 
+  useEffect(() => {
+    axiosInstance.post('/contacts').catch((err) => {
+     console.log('err', err.response);
+    });
+  }, []);
 
   const onChange = ({name, value}) => {
     setForm({...form, [name]: value});
