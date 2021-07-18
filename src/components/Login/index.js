@@ -7,6 +7,7 @@ import Container from '../common/Container/index';
 import CustomButton from '../common/CustomButton/index';
 import Input from '../common/Input/index';
 import {REGISTER} from '../../constants/RouteNames';
+import Message from '../common/Message/index.js';
 
 import styles from './styles';
 
@@ -22,6 +23,17 @@ const LoginComponent = () => {
             <View>
               <Text style={styles.title}>Welcome to RN Contacts App</Text>
               <Text style={styles.subTitle}>Please login here</Text>
+
+              <Message 
+                retry 
+                retryFn={() => {console.log('120')}} 
+                primary
+                onDismiss={() => {console.log('close tab')}} 
+                message='invalid credentials' 
+              />
+              <Message onDismiss={() => {console.log('close tab')}}  danger message='invalid credentials' />
+              <Message onDismiss={() => {console.log('close tab')}}  info message='invalid credentials' />
+              <Message onDismiss={() => {console.log('close tab')}}  success message='invalid credentials' />
 
               <View style={styles.form}>
                 <Input
