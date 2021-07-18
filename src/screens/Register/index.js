@@ -1,19 +1,38 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState, useEffect, useContext} from 'react';
+import { useFocusEffect } from '@react-navigation/native';
 import {View, Text} from 'react-native';
+import {useNavigation} from '@react-navigation/native';
 
 import RegisterComponent from '../../components/Signup/index';
 import envs from '../../config/env';
-import axiosInstance from '../../helpers/axiosInterceptor';
+import axios from '../../helpers/axiosInterceptor';
+import register, {clearAuthState} from '../../context/actions/auth/register';
+import {GlobalContext} from '../../context/Provider';
+import {LOGIN} from '../../constants/RouteNames';
 
 const Register = () => {
  const [form, setForm] = useState({});
+ const {navigate} = useNavigation();
  const [errors, setErrors] = useState({});
- 
+ const {
+   authDispatch, 
+   authState: {error, loading, data},
+  } = useContext(GlobalContext);
+
   useEffect(() => {
-    axiosInstance.post('/contacts').catch((err) => {
-     console.log('err', err.response);
-    });
-  }, []);
+    if(data) {
+      navigate(LOGIN)
+    }
+  }, [data]);
+
+  useFocusEffect(
+    React.useCallback(() => {
+     if(data || error) {
+       clearAuthState()(authDispatch) 
+     } 
+    }, [data, error]),
+  );
+
 
   const onChange = ({name, value}) => {
     setForm({...form, [name]: value});
@@ -39,7 +58,7 @@ const Register = () => {
 
   const onSubmit = () => {
     // validation
-    console.log('form: >>', form);
+    // console.log('form: >>', form);
 
     if(!form.userName) {
       setErrors(prev => {return {...prev, userName: 'Please add a username'}});
@@ -61,6 +80,15 @@ const Register = () => {
       setErrors(prev => {return {...prev, password: 'Please add a password'}});
     }
 
+    if(
+      Object.values(form).length === 5 && 
+      Object.values(form).every(item => item.trim().length > 0) &&
+      Object.values(errors).every(item => !item)
+    ) {
+      register(form)(authDispatch);
+      console.log(form)
+    }
+
   };
 
  return(
@@ -68,7 +96,9 @@ const Register = () => {
      onSubmit={onSubmit}
      onChange={onChange} 
      form={form} 
-     errors={errors} 
+     errors={errors}
+     error={error}
+     loading={loading} 
     />
  );
 };

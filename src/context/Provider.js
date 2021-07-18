@@ -13,7 +13,8 @@ const GlobalProvider = ({children}) => {
 
   return(
       <GlobalContext.Provider 
-        value={{authState, contactsState, authDispatch, contactsDispatch}}>
+        value={{authState, contactsState, authDispatch, contactsDispatch}}
+      >
        {children}
       </GlobalContext.Provider>
   );

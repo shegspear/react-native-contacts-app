@@ -14,6 +14,8 @@ const RegisterComponent = ({
   onSubmit,
   onChange,
   form,
+  loading,
+  error,
   errors,
 }) => {
     const {navigate} = useNavigation();
@@ -29,11 +31,12 @@ const RegisterComponent = ({
               <Text style={styles.subTitle}>Create a free account</Text>
 
               <View style={styles.form}>
+                {error?.error && <Text>{error.error}</Text>}
                 <Input
                     label="Username"
                     iconPosition='right'
                     placeholder={'Enter username'}
-                    error={errors.userName}
+                    error={errors.userName || error?.username?.[0]}
                     onChangeText={(value) => {onChange({name: 'userName', value})}}
                 />
 
@@ -42,14 +45,14 @@ const RegisterComponent = ({
                     iconPosition='right'
                     placeholder={'Enter first name'}
                     onChangeText={(value) => {onChange({name: 'firstName', value})}}
-                    error={errors.firstName}
+                    error={errors.firstName|| error?.first_name?.[0]}
                 />
 
                  <Input
                     label="Last name"
                     iconPosition='right'
                     placeholder={'Enter last name'}
-                    error={errors.lastName}
+                    error={errors.lastName|| error?.last_name?.[0]}
                     onChangeText={(value) => {onChange({name: 'lastName', value})}}
                 />
 
@@ -57,7 +60,7 @@ const RegisterComponent = ({
                     label="Email"
                     iconPosition='right'
                     placeholder={'Enter email'}
-                    error={errors.email}
+                    error={errors.email || error?.email?.[0]}
                     onChangeText={(value) => {onChange({name: 'email', value})}}
                 />
 
@@ -67,11 +70,17 @@ const RegisterComponent = ({
                     secureTextEntry={true}
                     icon={<Text>Show</Text>}
                     iconPosition='right'
-                    error={errors.password}
+                    error={errors.password || error?.password?.[0]}
                     onChangeText={(value) => {onChange({name: 'password', value})}}
                 />
 
-                <CustomButton onPress={onSubmit} primary title='Submit' />
+                <CustomButton 
+                   loading={loading} 
+                   onPress={onSubmit}
+                   disabled={loading} 
+                   primary 
+                   title='Submit' 
+                />
 
                 <View style={styles.createSection}>
                   <Text style={styles.infoText}>Already have an account ? </Text>
