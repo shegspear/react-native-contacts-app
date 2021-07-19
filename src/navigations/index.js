@@ -1,6 +1,8 @@
-import React, {useContext} from 'react';
+import React, {useContext, useState, useEffect} from 'react';
 import {Text} from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import {ActivityIndicator} from 'react-native';
 
 import AuthNavigator from './AuthNavigator';
 import HomeNavigator from './HomeNavigator';
@@ -12,15 +14,56 @@ const AppNavContainer = () => {
     authState: {isLoggedIn},
   } = useContext(GlobalContext);
 
-   console.log('isLoggedIn:', isLoggedIn);
-   console.log('above command');
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  // set this state as a clean up for memory leaks from useEfect calling async functions
+  // notification vanished like that, massive grin you cocky prick
+  const [authLoaded, setAuthLoaded] = useState(false);
+
+  const getUser = async () => {
+
+    try {
+      const user = await AsyncStorage.getItem('user');
+
+      if(user) {
+        setAuthLoaded(true);
+
+        setIsAuthenticated(true);
+      } else {
+        setAuthLoaded(false);
+
+        setIsAuthenticated(false);
+      }
+
+    } catch (error) {
+      
+    }
+
+  };
+
+  useEffect(() => {
+    getUser();
+  }, []);
+
+  // console.log('isLoggedIn:', isAuthenticated);
 
   return(
-   <NavigationContainer>
-     {
-       isLoggedIn ? (<DrawerNavigator />) : (<AuthNavigator />)
-     }    
-    </NavigationContainer>
+   <>
+    {
+      authLoaded ? (
+        <NavigationContainer>
+          {
+            isLoggedIn || isAuthenticated ? (
+             <DrawerNavigator />
+             ) : (
+             <AuthNavigator />
+             )
+          }    
+        </NavigationContainer>
+      ) : (
+        <ActivityIndicator/>
+      )
+    }
+   </>
   ); 
 };
 
