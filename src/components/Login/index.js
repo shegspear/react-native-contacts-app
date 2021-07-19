@@ -11,7 +11,12 @@ import Message from '../common/Message/index.js';
 
 import styles from './styles';
 
-const LoginComponent = () => {
+const LoginComponent = ({
+  error,
+  loading,
+  onChange,
+  onSubmit,
+}) => {
     const {navigate} = useNavigation();
     return(
        <Container>
@@ -24,34 +29,45 @@ const LoginComponent = () => {
               <Text style={styles.title}>Welcome to RN Contacts App</Text>
               <Text style={styles.subTitle}>Please login here</Text>
 
-              <Message 
-                retry 
-                retryFn={() => {console.log('120')}} 
-                primary
-                onDismiss={() => {console.log('close tab')}} 
-                message='invalid credentials' 
-              />
-              <Message onDismiss={() => {console.log('close tab')}}  danger message='invalid credentials' />
-              <Message onDismiss={() => {console.log('close tab')}}  info message='invalid credentials' />
-              <Message onDismiss={() => {console.log('close tab')}}  success message='invalid credentials' />
-
               <View style={styles.form}>
+
+              {error && !error.error && (
+                <Message onDismiss={() => {console.log('close tab')}}  danger message='invalid credentials' />
+              )}
+
+              {error?.error && (
+                <Message
+                  danger
+                  onDismiss
+                  message={error?.error}
+                />
+              )}
+
                 <Input
-                    label="Username"
-                    iconPosition='right'
-                    placeholder={'Enter Username'}
-                    //   error={'This field is required'}
+                  label="Username"
+                  iconPosition='right'
+                  placeholder={'Enter Username'}
+                  // error={error?.username?.[0]}
+                  onChangeText={(value) => {onChange({name: 'userName', value})}}
                 />
 
                 <Input
-                    label="Password"
-                    placeholder={'Enter Password'}
-                    secureTextEntry={true}
-                    icon={<Text>Show</Text>}
-                    iconPosition='right'
+                  label="Password"
+                  placeholder={'Enter Password'}
+                  secureTextEntry={true}
+                  icon={<Text>Show</Text>}
+                  iconPosition='right'
+                  // error={error?.password?.[0]}
+                  onChangeText={(value) => {onChange({name: 'password', value})}}
                 />
 
-                <CustomButton primary title='Submit' />
+                <CustomButton
+                  disabled={loading} 
+                  onPress={onSubmit}
+                  loading={loading} 
+                  primary 
+                  title='Submit' 
+                />
 
                 <View style={styles.createSection}>
                   <Text style={styles.infoText}>Need a new account ? </Text>
