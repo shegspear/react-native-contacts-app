@@ -7,6 +7,8 @@ import {
     Text, 
     TouchableOpacity,
 } from 'react-native';
+import Icon from 'react-native-vector-icons/Fontisto';
+import MaterialIcon from 'react-native-vector-icons/MaterialIcons';
 
 import Container from '../../components/common/Container/index';
 import {SETTINGS} from '../../constants/RouteNames';
@@ -31,12 +33,12 @@ const SideMenu = ({navigation, authDispatch}) => {
 
     const menuItems = [
         {
-          icon: <Text>T</Text>,
+          icon: <Icon size={17} name='player-settings' />,
           name: 'Settings',
           onPress: () => {navigation.navigate(SETTINGS)}
         },
         {
-          icon: <Text>T</Text>, 
+          icon: <MaterialIcon size={17} name='logout' />, 
           name: 'Logout',
           onPress: handleLogout,
         }

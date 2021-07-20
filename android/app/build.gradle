@@ -1,4 +1,6 @@
 apply plugin: "com.android.application"
+// added this 
+// apply from: "../../node_modules/react-native-vector-icons/fonts.gradle"
 
 import com.android.build.OutputFile
 
@@ -76,6 +78,7 @@ import com.android.build.OutputFile
  *   extraPackagerArgs: []
  * ]
  */
+
 
 project.ext.react = [
     enableHermes: false,  // clean and rebuild if changing
@@ -187,8 +190,11 @@ dependencies {
     implementation fileTree(dir: "libs", include: ["*.jar"])
     //noinspection GradleDynamicVersion
     implementation "com.facebook.react:react-native:+"  // From node_modules
+    //added this
+    implementation project(':react-native-vector-icons')
 
     implementation "androidx.swiperefreshlayout:swiperefreshlayout:1.0.0"
+
 
     debugImplementation("com.facebook.flipper:flipper:${FLIPPER_VERSION}") {
       exclude group:'com.facebook.fbjni'
@@ -220,3 +226,29 @@ task copyDownloadableDepsToLibs(type: Copy) {
 }
 
 apply from: file("../../node_modules/@react-native-community/cli-platform-android/native_modules.gradle"); applyNativeModulesAppBuildGradle(project)
+
+
+// added this
+project.ext.vectoricons = [
+    iconFontNames: [ 
+        'AntDesign.ttf',
+        'MaterialIcons.ttf',
+        'Entypo.ttf',
+        'EvilIcons.ttf',
+        'Feather.ttf',
+        'FontAwesome.ttf',
+        'FontAwesome5_Brands.ttf',
+        'FontAwesome5_Regular.ttf',
+        'FontAwesome5_Solid.ttf',
+        'Foundation.ttf',
+        'Ionicons.ttf',
+        'MaterialIcons.ttf',
+        'MaterialCommunityIcons.ttf',
+        'SimpleLineIcons.ttf',
+        'Octicons.ttf',
+        'Zocial.ttf',
+        'Fontisto.ttf'
+    ] // Name of the font files you want to copy
+]
+// added this
+apply from: "../../node_modules/react-native-vector-icons/fonts.gradle" 

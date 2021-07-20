@@ -60,38 +60,38 @@ const LoginComponent = ({
                 />
               )}
 
-                <Input
-                  label="Username"
-                  iconPosition='right'
-                  placeholder={'Enter Username'}
-                  value={form.userName || null}
-                  onChangeText={(value) => {onChange({name: 'userName', value})}}
-                />
+              <Input
+                label="Username"
+                iconPosition='right'
+                placeholder={'Enter Username'}
+                value={form.userName || null}
+                onChangeText={(value) => {onChange({name: 'userName', value})}}
+              />
 
-                <Input
-                  label="Password"
-                  placeholder={'Enter Password'}
-                  secureTextEntry={isSecureEntry}
-                  icon={
-                    <TouchableOpacity onPress={() => {
-                      setIsSecureEntry(!isSecureEntry);
-                    }}>
-                      <Text>{isSecureEntry ? 'Show' : 'Hide'}</Text>
-                    </TouchableOpacity>
-                  }
-                  iconPosition='right'
-                  onChangeText={(value) => {onChange({name: 'password', value})}}
-                />
+              <Input
+                label="Password"
+                placeholder={'Enter Password'}
+                secureTextEntry={isSecureEntry}
+                icon={
+                  <TouchableOpacity onPress={() => {
+                    setIsSecureEntry(!isSecureEntry);
+                  }}>
+                    <Text>{isSecureEntry ? 'Show' : 'Hide'}</Text>
+                  </TouchableOpacity>
+                }
+                iconPosition='right'
+                onChangeText={(value) => {onChange({name: 'password', value})}}
+              />
 
-                <CustomButton
-                  disabled={loading} 
-                  onPress={onSubmit}
-                  loading={loading} 
-                  primary 
-                  title='Submit' 
-                />
+              <CustomButton
+                disabled={loading} 
+                onPress={onSubmit}
+                loading={loading} 
+                primary 
+                title='Submit' 
+              />
 
-                <View style={styles.createSection}>
+              <View style={styles.createSection}>
                   <Text style={styles.infoText}>Need a new account ? </Text>
 
                   <TouchableOpacity onPress={() => navigate(REGISTER)}>
