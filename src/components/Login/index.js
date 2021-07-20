@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {View, Text, TextInput, Image} from 'react-native';
 import {TouchableOpacity} from 'react-native-gesture-handler';
 import { useNavigation } from '@react-navigation/native';
@@ -18,6 +18,7 @@ const LoginComponent = ({
   onSubmit,
 }) => {
     const {navigate} = useNavigation();
+    const [isSecureEntry, setIsSecureEntry] = useState(true);
     return(
        <Container>
             <Image 
@@ -47,17 +48,21 @@ const LoginComponent = ({
                   label="Username"
                   iconPosition='right'
                   placeholder={'Enter Username'}
-                  // error={error?.username?.[0]}
                   onChangeText={(value) => {onChange({name: 'userName', value})}}
                 />
 
                 <Input
                   label="Password"
                   placeholder={'Enter Password'}
-                  secureTextEntry={true}
-                  icon={<Text>Show</Text>}
+                  secureTextEntry={isSecureEntry}
+                  icon={
+                    <TouchableOpacity onPress={() => {
+                      setIsSecureEntry(!isSecureEntry);
+                    }}>
+                      <Text>{isSecureEntry ? 'Show' : 'Hide'}</Text>
+                    </TouchableOpacity>
+                  }
                   iconPosition='right'
-                  // error={error?.password?.[0]}
                   onChangeText={(value) => {onChange({name: 'password', value})}}
                 />
 
