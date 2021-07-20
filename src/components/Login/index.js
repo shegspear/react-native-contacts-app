@@ -13,12 +13,15 @@ import styles from './styles';
 
 const LoginComponent = ({
   error,
+  form,
+  justSignedUp,
   loading,
   onChange,
   onSubmit,
 }) => {
     const {navigate} = useNavigation();
     const [isSecureEntry, setIsSecureEntry] = useState(true);
+
     return(
        <Container>
             <Image 
@@ -32,8 +35,21 @@ const LoginComponent = ({
 
               <View style={styles.form}>
 
+              {
+                justSignedUp && (
+                  <Message 
+                    onDismiss={() => {console.log('close tab')}}  
+                    success 
+                    message='Account created successfully' 
+                  />
+                )
+              }
+
               {error && !error.error && (
-                <Message onDismiss={() => {console.log('close tab')}}  danger message='invalid credentials' />
+                <Message 
+                  onDismiss={() => {console.log('close tab')}}  
+                  danger 
+                  message='invalid credentials' />
               )}
 
               {error?.error && (
@@ -48,6 +64,7 @@ const LoginComponent = ({
                   label="Username"
                   iconPosition='right'
                   placeholder={'Enter Username'}
+                  value={form.userName || null}
                   onChangeText={(value) => {onChange({name: 'userName', value})}}
                 />
 

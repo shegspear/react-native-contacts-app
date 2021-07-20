@@ -1,5 +1,6 @@
-import React, {useState, useContext} from 'react';
+import React, {useState, useContext, useEffect} from 'react';
 import {View, Text, TextInput} from 'react-native';
+import {useRoute} from '@react-navigation/native';
 
 import LogInComponent from '../../components/Login/index';
 import {GlobalContext} from '../../context/Provider';
@@ -7,6 +8,16 @@ import loginUser from '../../context/actions/auth/loginUser';
 
 const Login = () => {
  const [form, setForm] = useState({});
+ const [justSignedUp, setJustSignedUp] = useState(false);
+ const {params} = useRoute();
+
+ useEffect(() => {
+  if(params?.data) {
+    setJustSignedUp(true);
+    setForm({...form, userName: params.data.username})
+  }
+ }, [params]);
+
  const {
    authDispatch, 
    authState: {error, loading},
@@ -14,12 +25,12 @@ const Login = () => {
 
  const onSubmit = () => {
    if(form.userName && form.password) {
-      console.log('44:>>', 44);
       loginUser(form)(authDispatch);
    }
  };
 
  const onChange = ({name, value}) => {
+   setJustSignedUp(false);
     setForm({...form, [name]: value});
  };
 
@@ -29,7 +40,8 @@ const Login = () => {
      onChange={onChange} 
      form={form} 
      error={error}
-     loading={loading} 
+     loading={loading}
+     justSignedUp={justSignedUp} 
    />
  );
 };

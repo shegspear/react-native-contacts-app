@@ -52,12 +52,12 @@ const SideMenu = ({navigation, authDispatch}) => {
 
                 <View style={{paddingHorizontal: 70}}>
                  {
-                    menuItems.map(({name, icon, onPress}) => (
-                         <TouchableOpacity onPress={onPress} key={name} style={styles.item}>
-                          {icon}
-                          <Text style={styles.itemText}>{name}</Text>
-                         </TouchableOpacity>
-                    ))
+                  menuItems.map(({name, icon, onPress}) => (
+                    <TouchableOpacity onPress={onPress} key={name} style={styles.item}>
+                    {icon}
+                    <Text style={styles.itemText}>{name}</Text>
+                    </TouchableOpacity>
+                  ))
                  }
                 </View>
             </Container>
