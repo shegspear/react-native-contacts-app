@@ -14,7 +14,7 @@ const AppNavContainer = () => {
     authState: {isLoggedIn},
   } = useContext(GlobalContext);
 
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [isAuthenticated, setIsAuthenticated] = useState(isLoggedIn);
   // set this state as a clean up for memory leaks from useEfect calling async functions
   // notification vanished like that, massive grin you cocky prick
   const [authLoaded, setAuthLoaded] = useState(false);
@@ -29,7 +29,7 @@ const AppNavContainer = () => {
 
         setIsAuthenticated(true);
       } else {
-        setAuthLoaded(false);
+        setAuthLoaded(true);
 
         setIsAuthenticated(false);
       }
@@ -42,7 +42,7 @@ const AppNavContainer = () => {
 
   useEffect(() => {
     getUser();
-  }, []);
+  }, [isLoggedIn]);
 
   // console.log('isLoggedIn:', isAuthenticated);
 
@@ -52,7 +52,7 @@ const AppNavContainer = () => {
       authLoaded ? (
         <NavigationContainer>
           {
-            isLoggedIn || isAuthenticated ? (
+            isAuthenticated ? (
              <DrawerNavigator />
              ) : (
              <AuthNavigator />

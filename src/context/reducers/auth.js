@@ -6,6 +6,7 @@ import {
   LOGIN_SUCCESS,
   LOGIN_FAIL,
   LOGIN_LOADING,
+  LOGOUT_USER,
 } from '../../constants/actionTypes/index';
 
 const auth = (state, {type, payload}) => {
@@ -30,6 +31,14 @@ const auth = (state, {type, payload}) => {
         loading: false,
         data: payload,
         isLoggedIn: true,
+      };
+
+      case LOGOUT_USER:
+      return {
+        ...state,
+        loading: false,
+        data: null,
+        isLoggedIn: false,
       };
 
       case REGISTER_FAIL:

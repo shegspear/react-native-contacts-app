@@ -10,9 +10,10 @@ import {
 
 import Container from '../../components/common/Container/index';
 import {SETTINGS} from '../../constants/RouteNames';
+import logoutUser from '../../context/actions/auth/logoutUser';
 import styles from './styles';
 
-const SideMenu = ({navigation}) => {
+const SideMenu = ({navigation, authDispatch}) => {
     const handleLogout = () => {
       navigation.toggleDrawer();
       Alert.alert('Logout!', 'Are you sure you want to logout ?', [
@@ -20,10 +21,10 @@ const SideMenu = ({navigation}) => {
           text: 'Cancel',
           onPress: () => {},
         },
-        
+
         {
           text: 'Ok',
-          onPress: () => {},
+          onPress: () => {logoutUser()(authDispatch)},
         },
       ]);
     };
