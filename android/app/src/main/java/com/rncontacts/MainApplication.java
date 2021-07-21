@@ -11,7 +11,7 @@ import com.facebook.soloader.SoLoader;
 import java.lang.reflect.InvocationTargetException;
 import java.util.List;
 // added this
-import com.oblador.vectoricons.VectorIconsPackage;
+// import com.oblador.vectoricons.VectorIconsPackage;
 
 public class MainApplication extends Application implements ReactApplication {
 

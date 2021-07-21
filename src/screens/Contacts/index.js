@@ -2,9 +2,9 @@ import React, {useEffect} from 'react';
 import {View, Text} from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import {TouchableOpacity} from 'react-native-gesture-handler';
-import MaterialIcon from 'react-native-vector-icons/MaterialIcons';
 
 import Container from '../../components/common/Container/index';
+import Icon from '../../components/common/Icon';
 
 const Contacts = () => {
  const {setOptions, toggleDrawer} = useNavigation();
@@ -14,7 +14,7 @@ const Contacts = () => {
     <TouchableOpacity onPress={() => {
       toggleDrawer();
     }}>
-      <MaterialIcon style={{padding: 10}} size={25} name='menu' />
+      <Icon type='material' style={{padding: 10}} size={25} name='menu' />
     </TouchableOpacity>
   )})
  }, []);
